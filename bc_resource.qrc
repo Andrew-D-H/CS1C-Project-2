@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>resources/Bulk Club Mini Logo.png</file>
+        <file>resources/Bulk Club Logo.png</file>
+        <file>resources/Bulk Club Login.png</file>
+    </qresource>
+</RCC>
