@@ -1,9 +1,17 @@
+/*! file: expirations.h
+ * ====================================================
+ * disc:
+ *      This window allows the user to select from a
+ * dropdown of months and returns every member that
+ * expires that month.
+ */
 #ifndef EXPIRATIONS_H
 #define EXPIRATIONS_H
 
 #include <QDialog>
 #include <QtSql>
 #include <QVector>
+#include <QMessageBox>
 
 #include "database.h"
 

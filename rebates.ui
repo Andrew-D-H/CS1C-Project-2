@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Expirations</class>
- <widget class="QDialog" name="Expirations">
+ <class>Rebates</class>
+ <widget class="QDialog" name="Rebates">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>475</width>
+    <height>327</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,14 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Enter a Month:</string>
+        <string>Recommended Conversions</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: #ffffff</string>
        </property>
       </widget>
      </item>
@@ -43,13 +50,22 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
-     <property name="styleSheet">
-      <string notr="true">background-color: #feff57</string>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string/>
      </property>
-     <property name="text">
-      <string>Generate</string>
-     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">background-color: #feff57</string>
+        </property>
+        <property name="text">
+         <string>Generate Rebates</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

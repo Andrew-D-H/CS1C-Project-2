@@ -1,3 +1,12 @@
+/*! file: Reports
+ * ====================================================
+ * disc:
+ *      This class allows the user to enter a date and
+ * returns every item that was purchased on that date.
+ * it also shows how many executive members shopped on
+ * that particular day.
+ */
+
 #ifndef REPORTS_H
 #define REPORTS_H
 
@@ -29,10 +38,14 @@ private:
     void displayExecutive(QString tableName);
     void updateMemberCounts(QVector<int> idVec);
     void updateRevenueTotal(QString qry, QVector<int> idVec);
+    QVector<QString> tableNames;
+    QVector<QString> regMems;
+    QVector<QString> ExecMems;
 
     Ui::Reports *ui;
     Database db;
     QSqlQueryModel *itemModel;
+    char check = 0;
 };
 
 #endif // REPORTS_H

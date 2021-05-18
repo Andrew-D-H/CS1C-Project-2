@@ -1,3 +1,10 @@
+/*! file: login.h
+ * ====================================================
+ * disc:
+ *      a simple login page. This also returns the
+ * credentials of the user if they login.
+ */
+
 #ifndef LOGIN_H
 #define LOGIN_H
 

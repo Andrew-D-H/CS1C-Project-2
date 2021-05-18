@@ -1,3 +1,11 @@
+/*! file: reports.h
+ * ====================================================
+ * disc:
+ *      This reads in a date, and returns all members
+ *  who purchased something on that date.
+ *
+ */
+
 #include "reports.h"
 #include "ui_reports.h"
 
@@ -13,7 +21,7 @@ Reports::Reports(QWidget *parent) :
     ui->comboBox_membership->addItem("All");
     ui->comboBox_membership->addItem("Regular");
     ui->comboBox_membership->addItem("Executive");
-    //making total rev line edit non-editable.
+    //!making total rev line edit non-editable.
     ui->lineEdit_totalRev->setReadOnly(true);
 
     db.openDatabase();
@@ -27,8 +35,8 @@ Reports::~Reports()
 
 void Reports::on_pushButton_clicked()
 {
-    //clearing the list/table incase there was a previous execution.
-    ui->listWidget->clear();
+    //!clearing the list/table incase there was a previous execution.
+    ui->listWidget_shoppers->clear();
     ui->tableView->clearSpans();
     ui->label_execMember->clear();
     ui->label_regMember->clear();
@@ -41,11 +49,14 @@ void Reports::on_pushButton_clicked()
     QString date = ui->lineEdit_date->text();
     int memberChoice = ui->comboBox_membership->currentIndex();
     date.remove('-');
+    date.remove('/');
 
+    //! the problem is that this checks the dates intead of the
+    //! id table generated for newbies.
     query.exec("SHOW TABLES");
 
-    // If the user date matches with a table name then save it.
-    // otherwise inform the user.
+    //! If the user date matches with a table name then save it.
+    //! otherwise inform the user.
     while(query.next())
     {
         QString tableName = query.value(0).toString();
@@ -66,8 +77,8 @@ void Reports::on_pushButton_clicked()
         return;
     }
 
-    //dateStringKey.insert(4,"-");
-    //dateStringKey.insert(7,"-");
+    //! dateStringKey.insert(4,"-");
+    //! dateStringKey.insert(7,"-");
     dateStringKey.prepend('d');
 
     switch(memberChoice)
@@ -99,7 +110,7 @@ void Reports::displayBothRoles(QString tableName)
     QVector <int> idVec(db.numOfMembers());
 
 
-    //create a vector of id's from the user selected date.
+    //! create a vector of id's from the user selected date.
     query.exec("SELECT id FROM " + tableName + ";");
 
     while(query.next())
@@ -107,12 +118,12 @@ void Reports::displayBothRoles(QString tableName)
         int reportId = query.value(0).toInt();
         idVec.push_back(reportId);
     }
-    //remove any unique dates to improve search time later.
+    //! remove any unique dates to improve search time later.
     std::sort(idVec.begin(),idVec.end());
     idVec.erase(std::unique(idVec.begin(), idVec.end()), idVec.end());
 
-    // compare items in the id vector against member ids.
-    // corrisponding names are added to the list widget.
+    //! compare items in the id vector against member ids.
+    //! corrisponding names are added to the list widget.
     query.exec("SELECT id,fName,lName FROM members;");
     while(query.next())
     {
@@ -127,11 +138,11 @@ void Reports::displayBothRoles(QString tableName)
             {
                 firstName = query.value(1).toString();
                 LastName = query.value(2).toString();
-                //add to the list widget
-                ui->listWidget->addItem(firstName + ", " + LastName);
+                //! add to the list widget
+                ui->listWidget_shoppers->addItem(firstName + ", " + LastName);
             }
         }
-    } // end query.exec()
+    } //! end query.exec()
 
     updateRevenueTotal("SELECT price, quantity FROM " + tableName + ";", idVec);
 }
@@ -143,7 +154,7 @@ void Reports::displayRegular(QString tableName)
     QVector <int> justRegularIds(db.numOfMembers());
 
 
-    //create a vector of id's from the user selected date.
+    //! create a vector of id's from the user selected date.
     query.exec("SELECT id FROM " + tableName + ";");
 
     while(query.next())
@@ -151,12 +162,12 @@ void Reports::displayRegular(QString tableName)
         int reportId = query.value(0).toInt();
         idVec.push_back(reportId);
     }
-    //remove any unique dates to improve search time later.
+    //! remove any unique dates to improve search time later.
     std::sort(idVec.begin(),idVec.end());
     idVec.erase(std::unique(idVec.begin(), idVec.end()), idVec.end());
 
-    // compare items in the id vector against  REGULAR member ids.
-    // corrisponding names are added to the list widget.
+    //! compare items in the id vector against  REGULAR member ids.
+    //! corrisponding names are added to the list widget.
     query.exec("SELECT id,fName,lName FROM members WHERE type = 0;");
     while(query.next())
     {
@@ -171,15 +182,15 @@ void Reports::displayRegular(QString tableName)
             {
                 firstName = query.value(1).toString();
                 LastName = query.value(2).toString();
-                //add to the list widget
-                ui->listWidget->addItem(firstName + ", " + LastName);
-                justRegularIds.push_back(query.value(0).toInt()); //populating regular members id.
+                //! add to the list widget
+                ui->listWidget_shoppers->addItem(firstName + ", " + LastName);
+                justRegularIds.push_back(query.value(0).toInt()); //! populating regular members id.
             }
         }
-    } // end query.exec()
+    } //! end query.exec()
 
-    // A really REALLY dumb script to auto generate queries.
-    // Im 100% sure there is a better way of doing this.
+    //! A really REALLY dumb script to auto generate queries.
+    //! Im 100% sure there is a better way of doing this.
     this->itemModel = new QSqlQueryModel();
     QString ghettoQuery = "SELECT itemDisc, quantity FROM " + tableName + " WHERE id = ";
     QString ghettoPriceQuery = "SELECT price, quantity FROM " + tableName + " WHERE id = ";
@@ -197,7 +208,7 @@ void Reports::displayRegular(QString tableName)
         }
     }
 
-    //display the items in table view.
+    //! display the items in table view.
     itemModel->setQuery(ghettoQuery);
     ui->tableView->setModel(itemModel);
 
@@ -212,7 +223,7 @@ void Reports::displayExecutive(QString tableName)
     QVector <int> justExecIds(db.numOfMembers());
 
 
-    //create a vector of id's from the user selected date.
+    //! create a vector of id's from the user selected date.
     query.exec("SELECT id FROM " + tableName + ";");
 
     while(query.next())
@@ -221,12 +232,12 @@ void Reports::displayExecutive(QString tableName)
         idVec.push_back(reportId);
     }
 
-    //remove any unique dates to improve search time later.
+    //! remove any unique dates to improve search time later.
     std::sort(idVec.begin(),idVec.end());
     idVec.erase(std::unique(idVec.begin(), idVec.end()), idVec.end());
 
-    // compare items in the id vector against  EXECUTIVE member ids.
-    // corrisponding names are added to the list widget.
+    //! compare items in the id vector against  EXECUTIVE member ids.
+    //! corrisponding names are added to the list widget.
     query.exec("SELECT id,fName,lName FROM members WHERE type = 1;");
     while(query.next())
     {
@@ -241,15 +252,15 @@ void Reports::displayExecutive(QString tableName)
             {
                 firstName = query.value(1).toString();
                 LastName = query.value(2).toString();
-                //add to the list widget
-                ui->listWidget->addItem(firstName + ", " + LastName);
-                justExecIds.push_back(query.value(0).toInt()); //populating executive members id.
+                //! add to the list widget
+                ui->listWidget_shoppers->addItem(firstName + ", " + LastName);
+                justExecIds.push_back(query.value(0).toInt()); //! populating executive members id.
             }
         }
-    } // end query.exec()
+    } //! end query.exec()
 
-    // A really REALLY dumb script to auto generate queries.
-    // Im 100% sure there is a better way of doing this.
+    //! A really REALLY dumb script to auto generate queries.
+    //! Im 100% sure there is a better way of doing this.
     this->itemModel = new QSqlQueryModel();
     QString ghettoQuery = "SELECT itemDisc, quantity FROM " + tableName + " WHERE id = ";
     QString ghettoPriceQuery = "SELECT price, quantity FROM " + tableName + " WHERE id = ";
@@ -267,7 +278,7 @@ void Reports::displayExecutive(QString tableName)
         }
     }
 
-    //display the items in table view.
+    //!display the items in table view.
     itemModel->setQuery(ghettoQuery);
     ui->tableView->setModel(itemModel);
 
@@ -304,6 +315,7 @@ void Reports::updateMemberCounts(QVector<int> idVec)
     ui->label_regMember->setText(QString::number(numOfRegs));
 }
 
+//! returns the total for the revenue of that day
 void Reports::updateRevenueTotal(QString qry, QVector<int> idVec)
 {
     QSqlQuery query;
@@ -322,7 +334,7 @@ void Reports::updateRevenueTotal(QString qry, QVector<int> idVec)
     }
 
     updateMemberCounts(idVec);
-    //applying the tax to totalRevenue.
-    totalRevenue = 1.0775 * totalRevenue;
+    //!applying the tax to totalRevenue.
+    totalRevenue = 1.0725 * totalRevenue;
     ui->lineEdit_totalRev->setText("$" + QString::number(totalRevenue,'f',2));
 }

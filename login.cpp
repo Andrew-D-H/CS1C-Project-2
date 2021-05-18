@@ -1,3 +1,10 @@
+/*! file: login.cpp
+ * ====================================================
+ * disc:
+ *      a simple login class that passes a user's
+ * credentials to the main portion of the program.
+ */
+
 #include "login.h"
 #include "ui_login.h"
 

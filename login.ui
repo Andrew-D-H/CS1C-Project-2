@@ -21,7 +21,7 @@
        <string notr="true">background-color: #b4b5b7;</string>
       </property>
       <property name="title">
-       <string>GroupBox</string>
+       <string/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -48,7 +48,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_pass"/>
+          <widget class="QLineEdit" name="lineEdit_pass">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

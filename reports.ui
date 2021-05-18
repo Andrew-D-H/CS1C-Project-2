@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #55ffff</string>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -49,7 +52,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_date"/>
+       <widget class="QLineEdit" name="lineEdit_date">
+        <property name="styleSheet">
+         <string notr="true">background-color: #ffffff</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -63,12 +70,19 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox_membership"/>
+       <widget class="QComboBox" name="comboBox_membership">
+        <property name="styleSheet">
+         <string notr="true">background-color: #feff57</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
     <item>
      <widget class="QPushButton" name="pushButton">
+      <property name="styleSheet">
+       <string notr="true">background-color: #feff57</string>
+      </property>
       <property name="text">
        <string>Generate Report</string>
       </property>
@@ -123,6 +137,9 @@
      <width>181</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #ffffff</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_titleItemsSold">
@@ -209,17 +226,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QTableView" name="tableView">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>60</y>
-     <width>241</width>
-     <height>231</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QListWidget" name="listWidget">
+  <widget class="QListWidget" name="listWidget_shoppers">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -227,6 +234,22 @@
      <width>211</width>
      <height>231</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #ffffff</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>241</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #ffffff</string>
    </property>
   </widget>
  </widget>

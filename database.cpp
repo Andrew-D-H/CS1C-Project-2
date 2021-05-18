@@ -1,32 +1,39 @@
+/*! file: Database.cpp
+ * ====================================================
+ * disc:
+ *      Just a simple class that holds the dataBase
+ * information.
+ *
+ */
+
 #include "database.h"
 
 Database::Database()
 {
-    //connecting to the database:
-    //Make Sure to update the strings to your machine's Specs!
+    //!connecting to the database:
     db = QSqlDatabase::addDatabase("QODBC3"); /*!< database connnected to MySql Server. */
     db.setHostName("127.0.0.1");
     db.setUserName("root");
     db.setPassword("1234");
-    db.setDatabaseName("Database");   //For those using source code, put your own info here
+    db.setDatabaseName("Database");
 }
 
 Database::~Database()
 {
 
 }
-
+//! Opens the database for use.
 void Database::openDatabase()
 {
     db.open();
 }
-
+//! Closes the database.
 void Database::closeDatabase()
 {
     db.close();
 }
 
-//returns number of tables in the database
+//!returns number of tables in the database
 int Database::tableCount()
 {
     QSqlQuery query;
